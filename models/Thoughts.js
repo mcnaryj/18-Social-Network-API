@@ -12,18 +12,30 @@ const thoughtsSchema = new Schema(
             unique: true,
             trim: true
         },
-        reactions: {
-
+        // reactions: // refers to the reactions.js
+        username: {
+            type: String,
+            required: true,
         },
         createdAt: {
-            date: { type: Date, default: Date.now },
-
+            type: Date,
+            default: Date.now,
+            get: (time) => moment(time).format('MM/DD/YYYY'),
         },
         toJSON: {
-
-        }
+            virtuals: true,
+            getters: true,
+        },
+        id: false,
     }
-)
+);
+
+// rxns count
+// using virtuals to get the amt of reactions associated with each thought
+thoughtsSchema.virtual('reactions').get
+    (function () {
+        return this.reactions.length;
+    });
 
 
 
