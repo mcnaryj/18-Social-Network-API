@@ -1,13 +1,13 @@
-const mongoose = require('mongoose');
-
+const { Schema, model, Types } = require('mongoose');
 // we want to validate the email with a regular expression
 const validateEmail = function (email) {
     const regularExpression = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     return regularExpression.test(email);
 }
+const friend = require('./reactions');
 
 // user model should have username, email, thoughts, friends, toJSON and an id
-// thoughts should refer to thoughts, friends should refer to User
+// thoughts should refererence thoughts, friends should reference User
 // type, req, unique, trim
 // same, but validate for email
 
@@ -28,14 +28,16 @@ const userSchema = new Schema(
             unique: true,
             validate: [validateEmail, "Enter a valid email address"],
         },
-        thoughts: {
-            type: Schema.Types.ObjectID,
+        thoughts: [{
+            type: Schema.Types.ObjectId,
             ref: thoughts,
         },
-        friends: {
-            type: Schema.Types.ObjectID,
+        ],
+        friend: [{
+            type: Schema.Types.ObjectId,
             ref: User,
         },
+        ],
         // so that these will show up when we post the data
         toJSON: {
             virtuals: true,
