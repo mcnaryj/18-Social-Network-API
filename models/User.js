@@ -36,8 +36,10 @@ const userSchema = new Schema(
             type: Schema.Types.ObjectID,
             ref: User,
         },
+        // so that these will show up when we post the data
         toJSON: {
-
+            virtuals: true,
+            getters: true,
         }
 
     })

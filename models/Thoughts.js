@@ -17,6 +17,7 @@ const thoughtsSchema = new Schema(
             type: String,
             required: true,
         },
+        // for timestamps
         createdAt: {
             type: Date,
             default: Date.now,
