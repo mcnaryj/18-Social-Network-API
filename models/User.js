@@ -13,11 +13,32 @@ const validateEmail = function (email) {
 
 // type: Schema.Types.ObjectID
 
-const userSchema = new mongoose.Schema({
-    author: { type: String, required: true },
-    comment: { type: String, required: true },
+const userSchema = new Schema(
+    {
+        username: {
 
-})
+            type: String,
+            required: true,
+            unique: true,
+            trim: true
+        },
+        email: {
+            type: String,
+            required: true,
+            unique: true,
+            validate: [validateEmail, "Enter a valid email address"],
+        },
+        thoughts: {
+            type: Schema.Types.ObjectID,
+            ref: thoughts,
+        },
+        friends: {
+            type: Schema.Types.ObjectID,
+            ref: User,
+        }
+
+
+    })
 
 const User = model('user', userSchema);
 
