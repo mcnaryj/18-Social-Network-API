@@ -24,6 +24,8 @@ const thoughtsSchema = new Schema(
             default: Date.now,
             get: (time) => moment(time).format('MM/DD/YYYY'),
         },
+    },
+    {
         toJSON: {
             virtuals: true,
             getters: true,
