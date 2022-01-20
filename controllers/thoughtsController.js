@@ -1,16 +1,19 @@
-const { User, Thoughts } = require('../models');
+const { Thoughts, User } = require('../models');
 
 
 module.exports = {
     // Get all thoughts
     getThoughts(req, res) {
         Thoughts.find()
-            .then((thoughts) => res.json(thoughts))
+            .populate({ path: 'reactions', select: '-__v' })
+            .select('-__v')
+            .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
     // get a thought by a specific ID
     getThoughtById(req, res) {
         Thoughts.findOne({ _id: req.params.thoughtId })
+            .populate('reactions')
             .select('-__v')
             .then(async (thought) =>
                 !thought
@@ -22,8 +25,19 @@ module.exports = {
     // create a new thought
     createThought(req, res) {
         Thoughts.create(req.body)
-            .then((thought) => res.json(thought))
-            .catch((err) => res.status(500).json(err));
+            .then((thought) => {
+                return User.findOneAndUpdate(
+                    { _id: req.body.userId },
+                    { $push: { thoughts: thought._id.toString() } },
+                    { new: true }
+                ).then((updatedUser) => {
+                    res.json(updatedUser);
+                })
+            })
+            .catch((err) => {
+                console.log(err);
+                return res.status(500).json(err);
+            });
     },
     // update the thought
     updateThought(req, res) {

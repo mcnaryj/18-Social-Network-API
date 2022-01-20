@@ -16,7 +16,8 @@ const {
 
 router.route('/').get(getThoughts).post(createThought);
 router.route('/:thoughtId').get(getThoughtById).delete(deleteThought).patch(updateThought);
-router.route('/:thoughtId/reactions').post(createReaction);
+router.route("/:thoughtId/reactions").post(createReaction);
 router.route('/:thoughtId/reactions/:reactionId').delete(deleteReaction);
 
 module.exports = router;
+

@@ -27,16 +27,8 @@ const userSchema = new Schema(
             unique: true,
             validate: [validateEmail, "Enter a valid email address"],
         },
-        thoughts: [{
-            type: Schema.Types.ObjectId,
-            ref: "thoughts",
-        },
-        ],
-        friends: [{
-            type: Schema.Types.ObjectId,
-            ref: "User",
-        },
-        ],
+        thoughts: [{ type: Schema.Types.ObjectId, ref: 'Thoughts', }],
+        friends: [{ type: Schema.Types.ObjectId, ref: 'User', },],
         // so that these will show up when we post the data
     },
     {
@@ -48,7 +40,7 @@ const userSchema = new Schema(
     }
 );
 
-userSchema.virtual('numberOfFriends').get(function () { return this.friends.length });
+userSchema.virtual('friendCount').get(function () { return this.friends.length });
 
 const User = model('User', userSchema);
 
