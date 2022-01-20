@@ -1,5 +1,6 @@
 const { Schema, model } = require('mongoose');
 const moment = require('moment');
+const reactions = require('./reactions');
 // we want to require the reactions here
 // as well as moment
 
@@ -10,10 +11,10 @@ const thoughtsSchema = new Schema(
         text: {
             type: String,
             required: true,
-            unique: true,
-            trim: true
+            minlength: 1,
+            maxlength: 666,
         },
-        // reactions: // refers to the reactions.js
+        reactions: [reactions],
         username: {
             type: String,
             required: true,
@@ -36,10 +37,9 @@ const thoughtsSchema = new Schema(
 
 // rxns count
 // using virtuals to get the amt of reactions associated with each thought
-thoughtsSchema.virtual('reactions').get
-    (function () {
-        return this.reactions.length;
-    });
+thoughtsSchema.virtual('numberOfReactions').get(function () {
+    return this.reactions.length;
+});
 
 
 
