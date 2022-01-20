@@ -4,7 +4,7 @@ const validateEmail = function (email) {
     const regularExpression = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
     return regularExpression.test(email);
 }
-const friend = require('./reactions');
+const friends = require('./reactions');
 
 // user model should have username, email, thoughts, friends, toJSON and an id
 // thoughts should refererence thoughts, friends should reference User
@@ -16,7 +16,6 @@ const friend = require('./reactions');
 const userSchema = new Schema(
     {
         username: {
-
             type: String,
             required: true,
             unique: true,
@@ -33,7 +32,7 @@ const userSchema = new Schema(
             ref: "thoughts",
         },
         ],
-        friend: [{
+        friends: [{
             type: Schema.Types.ObjectId,
             ref: "User",
         },
@@ -51,6 +50,6 @@ const userSchema = new Schema(
 
 userSchema.virtual('numberOfFriends').get(function () { return this.friends.length });
 
-const User = model('user', userSchema);
+const User = model('User', userSchema);
 
 module.exports = User;
