@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const moment = require('moment');
-const reactions = require('./reactions');
+const reactionsSchema = require('./reactions');
 // we want to require the reactions here
 // as well as moment
 
@@ -12,12 +12,7 @@ const thoughtsSchema = new Schema(
             type: String,
             required: true,
             minlength: 1,
-            maxlength: 666,
-        },
-        reactions: [reactions],
-        username: {
-            type: String,
-            required: true,
+            maxlength: 280,
         },
         // for timestamps
         createdAt: {
@@ -25,6 +20,12 @@ const thoughtsSchema = new Schema(
             default: Date.now,
             get: (time) => moment(time).format('MM/DD/YYYY'),
         },
+        reactions: [reactionsSchema],
+        username: {
+            type: String,
+            required: true,
+        },
+
     },
     {
         toJSON: {

@@ -5,7 +5,7 @@ const { Schema, Types } = require('mongoose');
 
 // we want a reaction id, body, created at, username, toJSON (with a getter) and id set to false
 
-const reactionSchema = new Schema(
+const reactionsSchema = new Schema(
     {
         reactionId: {
             type: Schema.Types.ObjectId,
@@ -14,7 +14,7 @@ const reactionSchema = new Schema(
         reactionBody: {
             type: String,
             required: true,
-            maxlength: 666,
+            maxlength: 280,
         },
         createdAt: {
             type: Date,
@@ -35,4 +35,4 @@ const reactionSchema = new Schema(
 );
 
 
-module.exports = reactionSchema;
+module.exports = reactionsSchema;

@@ -5,17 +5,13 @@ module.exports = {
     // Get all thoughts
     getThoughts(req, res) {
         Thoughts.find()
-            .populate({ path: 'reactions', select: '-__v' })
-            .select('-__v')
             .then((thought) => res.json(thought))
             .catch((err) => res.status(500).json(err));
     },
     // get a thought by a specific ID
     getThoughtById(req, res) {
         Thoughts.findOne({ _id: req.params.thoughtId })
-            .populate('reactions')
-            .select('-__v')
-            .then(async (thought) =>
+            .then((thought) =>
                 !thought
                     ? res.status(404).json({ message: 'No thought with that ID' })
                     : res.json(thought)
@@ -46,6 +42,8 @@ module.exports = {
             { $set: req.body },
             { runValidators: true, new: true }
         )
+            .populate({ path: "reactions", select: "-__v" })
+            .select("-__v")
             .then((thought) =>
                 !thought
                     ? res.status(404).json({ message: 'Tough luck, bub. No thought with this id!' })
