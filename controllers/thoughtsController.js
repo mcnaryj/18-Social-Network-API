@@ -12,7 +12,7 @@ module.exports = {
     getThoughtById(req, res) {
         Thoughts.findOne({ _id: req.params.thoughtId })
             .select('-__v')
-            .then((thought) =>
+            .then(async (thought) =>
                 !thought
                     ? res.status(404).json({ message: 'No thought with that ID' })
                     : res.json(thought)
@@ -61,7 +61,6 @@ module.exports = {
                     : res.json(thought)
             )
             .catch((err) => {
-                console.log(err);
                 res.status(500).json(err);
             });
     },
