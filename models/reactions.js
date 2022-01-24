@@ -1,6 +1,7 @@
 // going to be added to the set with thoughts
 // require moment, Schema and Types
 const { Schema, Types } = require('mongoose');
+const moment = require('moment');
 
 
 // we want a reaction id, body, created at, username, toJSON (with a getter) and id set to false
