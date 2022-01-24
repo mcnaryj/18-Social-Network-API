@@ -27,9 +27,20 @@ const userSchema = new Schema(
             unique: true,
             validate: [validateEmail, "Enter a valid email address"],
         },
-        thoughts: [{ type: Schema.Types.ObjectId, ref: 'Thoughts' }],
-        friends: [{ type: Schema.Types.ObjectId, ref: 'User' }],        // so that these will show up when we post the data
+        thoughts: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "Thoughts",
+            },
+        ],
+        friends: [
+            {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+            },
+        ],       // so that these will show up when we post the data
     },
+
     {
         toJSON: {
             virtuals: true,

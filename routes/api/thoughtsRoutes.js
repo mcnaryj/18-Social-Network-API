@@ -2,11 +2,9 @@ const router = require('express').Router();
 
 // getThoughts, getThoughtbyID, createThought, createReaction, deleteReaction, deleteThought, updateThought
 // which are imported via the thoughtsController
-
-// we can chain the get and post together for getThoughts and CreateThought
 const {
     getThoughts,
-    getThoughtById,
+    getThoughtbyId,
     createThought,
     deleteThought,
     updateThought,
@@ -14,10 +12,12 @@ const {
     deleteReaction,
 } = require('../../controllers/thoughtsController');
 
-router.route('/').get(getThoughts).post(createThought);
-router.route('/:thoughtId').get(getThoughtById).delete(deleteThought).patch(updateThought);
+// we can chain the get and post together for getThoughts and CreateThought
+router.route("/").get(getThoughts).post(createThought);
+router.route('/:thoughtId').get(getThoughtbyId).delete(deleteThought).patch(updateThought);
 router.route("/:thoughtId/reactions").post(createReaction);
 router.route('/:thoughtId/reactions/:reactionId').delete(deleteReaction);
 
 module.exports = router;
+
 
