@@ -5,7 +5,7 @@
 
 ## Description
 
-The purpose of this project was to create the back-end of an e-commerce site that helps the user get, post, update and delete products/items so they can stay on top of their wares. The app uses object-relational-mapping to capture the data input by the user and updates the site accordingly.
+The purpose of this project was to create the back-end of an social networking site that helps the user get, post, update and delete users, thoughts and reactions.
 
 
 ## License
